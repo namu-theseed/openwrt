@@ -4,6 +4,9 @@ START=99
 
 boot() {
 	case $(board_name) in
+	iptime,ax8004m)
+		fw_setenv boot_from firmware2
+		;;
 	linksys,e8450)
 		mtd erase senv || true
 		;;

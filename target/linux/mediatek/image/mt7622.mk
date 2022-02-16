@@ -176,6 +176,24 @@ define Device/linksys_e8450-ubi
 endef
 TARGET_DEVICES += linksys_e8450-ubi
 
+define Device/iptime_ax8004m
+  DEVICE_VENDOR := ipTIME
+  DEVICE_MODEL := AX8004M
+  DEVICE_DTS := mt7622-iptime-ax8004m
+  DEVICE_DTS_DIR := ../dts
+  DEVICE_PACKAGES := kmod-usb-ohci kmod-usb2 kmod-usb3 kmod-mt7915e
+  UBINIZE_OPTS := -E 5
+  KERNEL_LOADADDR := 0x41000000
+  BLOCKSIZE := 128k
+  PAGESIZE := 2048
+  KERNEL_SIZE := 4194304
+  IMAGE_SIZE := 32768k
+  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
+  ARTIFACTS += factory-initramfs.bin
+  ARTIFACT/factory-initramfs.bin := append-image initramfs-kernel.bin | iptime-crc32 ax8004m
+endef
+TARGET_DEVICES += iptime_ax8004m
+
 define Device/mediatek_mt7622-rfb1
   DEVICE_VENDOR := MediaTek
   DEVICE_MODEL := MTK7622 rfb1 AP
